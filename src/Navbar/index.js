@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -21,6 +21,7 @@ import useMediaQuery from "@mui/material/useMediaQuery"; // Hook for media query
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false); // State for Drawer
+  const [bgColor, setBgColor] = useState("transparent"); // State for background color
   const open = Boolean(anchorEl);
   const solutionsButtonRef = useRef(null);
   const isMobile = useMediaQuery("(max-width:900px)"); // Check if it's mobile view
@@ -41,13 +42,32 @@ const Navbar = () => {
     setDrawerOpen(false);
   };
 
+  // Handle scroll event to change background color
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setBgColor("#fff"); // Change to white when scrolled down
+      } else {
+        setBgColor("transparent"); // Change back to transparent
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: "transparent", // White background
+        backgroundColor: bgColor, // Use dynamic background color
         padding: isMobile ? "10px 20px" : "10px 40px",
         boxShadow: "none",
+        transition: "background-color 0.3s ease", // Smooth transition
       }}
     >
       <Toolbar
