@@ -1,38 +1,36 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import bg1 from "../Assets/rie9.jpg";
-import demoImage from "../Assets/telemetry.png"; // Import your image here
+import demoImage from "../Assets/telemetry.png";
 
-const HeroSection = () => {
+const HeroSection = React.memo(() => {
   const [isVisible, setIsVisible] = useState(false);
   const [padding, setPadding] = useState(0);
-  const [scale, setScale] = useState(1); // New state for scaling
+  const [scale, setScale] = useState(1);
   const contentRef = useRef(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
+  // Debounced scroll handler to reduce the number of updates
+  const handleScroll = useCallback(() => {
+    const scrollY = window.scrollY;
 
-      if (scrollY > 50) {
-        setPadding(scrollY); // Change to white when scrolled down
-      } else {
-        setPadding(0); // Change back to transparent
-      }
-
-      // Calculate scale based on scroll position
-      const newScale = Math.max(0.5, 1 - scrollY / 1000); // Adjust the divisor for sensitivity
-      setScale(newScale);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    // Clean up event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    // Update padding and scale based on scroll position
+    setPadding(scrollY > 50 ? scrollY : 0);
+    const newScale = Math.max(0.5, 1 - scrollY / 1000);
+    setScale(newScale);
   }, []);
 
-  // Use Intersection Observer to detect visibility
+  useEffect(() => {
+    const throttledScroll = () => {
+      requestAnimationFrame(handleScroll);
+    };
+
+    window.addEventListener("scroll", throttledScroll);
+    return () => {
+      window.removeEventListener("scroll", throttledScroll);
+    };
+  }, [handleScroll]);
+
+  // Intersection Observer for visibility detection
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -41,7 +39,7 @@ const HeroSection = () => {
           observer.disconnect(); // Stop observing after it becomes visible
         }
       },
-      { threshold: 0.1 } // Trigger when 10% of the element is visible
+      { threshold: 0.1 }
     );
 
     if (contentRef.current) {
@@ -68,7 +66,7 @@ const HeroSection = () => {
         sx={{
           position: "relative",
           height: { xs: "100vh", md: "105vh" },
-          backgroundImage: `url(${bg1})`, // Background image
+          backgroundImage: `url(${bg1})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           display: "flex",
@@ -77,7 +75,7 @@ const HeroSection = () => {
           justifyContent: "left",
           color: "#fff",
           textAlign: "left",
-          fontFamily: "Inter, sans-serif", // Custom font
+          fontFamily: "Inter, sans-serif",
           "&::before": {
             content: '""',
             position: "absolute",
@@ -90,30 +88,28 @@ const HeroSection = () => {
           },
         }}
       >
-        {/* Content */}
         <Box
-          ref={contentRef} // Attach ref to the content box
-          className={isVisible ? "fade-in" : ""} // Apply fade-in class if visible
+          ref={contentRef}
+          className={isVisible ? "fade-in" : ""}
           sx={{
             zIndex: 2,
             maxWidth: "800px",
             padding: "5%",
             paddingTop: "160px",
-            transition: "transform 0.2s ease-in-out", // Smooth transition
-            // transform: `scale(${scale})`, // Apply scale transformation
+            transition: "transform 0.2s ease-in-out",
           }}
         >
           <Typography
             variant="h2"
             component="h1"
             sx={{
-              fontWeight: "700", // Bold weight
-              fontSize: { xs: "2.4rem", md: "4rem" }, // Responsive font sizes
+              fontWeight: "700",
+              fontSize: { xs: "2.4rem", md: "4rem" },
               marginBottom: "20px",
               letterSpacing: "0.05em",
               color: "darkred",
-              textShadow: "2px 2px 5px rgba(0, 0, 0, 0.5)", // Subtle shadow to enhance text readability
-              fontFamily: "Inter, sans-serif", // Ensure consistent font
+              textShadow: "2px 2px 5px rgba(0, 0, 0, 0.5)",
+              fontFamily: "Inter, sans-serif",
             }}
           >
             Your Vision. <br /> Our Craft.
@@ -121,9 +117,9 @@ const HeroSection = () => {
           <Typography
             variant="body1"
             sx={{
-              fontSize: { xs: "1rem", md: "1.25rem" }, // Responsive font sizes
+              fontSize: { xs: "1rem", md: "1.25rem" },
               marginBottom: "40px",
-              color: "darkgrey", // Slight gray color
+              color: "darkgrey",
               fontFamily: "Inter, sans-serif",
             }}
           >
@@ -140,11 +136,11 @@ const HeroSection = () => {
               fontWeight: "700",
               borderRadius: "30px",
               padding: "10px 30px",
-              fontSize: { xs: "0.875rem", md: "1rem" }, // Responsive font sizes for button
+              fontSize: { xs: "0.875rem", md: "1rem" },
               fontFamily: "Inter, sans-serif",
-              boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.2)", // Slight shadow for button depth
+              boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.2)",
               "&:hover": {
-                backgroundColor: "#FF4400", // Slightly darker hover state
+                backgroundColor: "#FF4400",
               },
             }}
           >
@@ -152,7 +148,6 @@ const HeroSection = () => {
           </Button>
         </Box>
 
-        {/* Add the image here */}
         <Box
           sx={{
             zIndex: 2,
@@ -160,19 +155,19 @@ const HeroSection = () => {
           }}
         >
           <img
-            src={demoImage} // Use your image variable here
+            src={demoImage}
             alt="Demo"
             style={{
               marginTop: { sm: "0", md: "160px" },
-              width: "100%", // Adjust size as needed
-              height: "auto", // Maintain aspect ratio
-              borderRadius: "10px", // Optional: rounded corners
+              width: "100%",
+              height: "auto",
+              borderRadius: "10px",
             }}
           />
         </Box>
       </Box>
     </Box>
   );
-};
+});
 
 export default HeroSection;
