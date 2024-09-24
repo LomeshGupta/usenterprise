@@ -1,9 +1,35 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import bg1 from "../Assets/rie9.jpg";
 import demoImage from "../Assets/telemetry.png"; // Import your image here
 
 const HeroSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const contentRef = useRef(null);
+
+  // Use Intersection Observer to detect visibility
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect(); // Stop observing after it becomes visible
+        }
+      },
+      { threshold: 0.1 } // Trigger when 10% of the element is visible
+    );
+
+    if (contentRef.current) {
+      observer.observe(contentRef.current);
+    }
+
+    return () => {
+      if (contentRef.current) {
+        observer.unobserve(contentRef.current);
+      }
+    };
+  }, []);
+
   return (
     <Box
       sx={{
@@ -26,7 +52,6 @@ const HeroSection = () => {
           left: 0,
           width: "100%",
           height: "100%",
-          // background: "rgba(0, 0, 0, 0.5)", // Dark overlay for contrast
           backdropFilter: "blur(2px)", // Blurred background
           zIndex: 1,
         },
@@ -34,6 +59,8 @@ const HeroSection = () => {
     >
       {/* Content */}
       <Box
+        ref={contentRef} // Attach ref to the content box
+        className={isVisible ? "fade-in" : ""} // Apply fade-in class if visible
         sx={{
           zIndex: 2,
           maxWidth: "800px",
@@ -67,10 +94,11 @@ const HeroSection = () => {
         >
           We specialize in crafting custom websites and mobile apps, custom
           applications that elevate your brand.
-          <br></br>Our expertise extends to comprehensive CRM solutions and Zoho
-          ERP, Microsoft Dynamics 365 Business Central training, implement and
+          <br />
+          Our expertise extends to comprehensive CRM solutions and Zoho ERP,
+          Microsoft Dynamics 365 Business Central training, implement and
           support, ensuring you harness the full potential of your technology.
-          <br></br>
+          <br />
           Partner with us to transform your vision into reality and drive your
           success forward.
         </Typography>
