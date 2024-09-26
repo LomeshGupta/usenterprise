@@ -101,6 +101,8 @@ const CenteredBox = () => {
           <Button
             variant="outlined"
             sx={{
+              borderRadius: "10px",
+              fontSize: "20px",
               mt: "20px",
               color: "white",
               borderColor: "transparent",
