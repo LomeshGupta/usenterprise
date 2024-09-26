@@ -15,7 +15,7 @@ const HeroSection = React.memo(() => {
 
     // Update padding and scale based on scroll position
     setPadding(scrollY > 50 ? scrollY : 0);
-    const newScale = Math.max(0.5, 1 - scrollY / 1000);
+    const newScale = Math.max(0.5, 1 - scrollY / 3000);
     setScale(newScale);
   }, []);
 
