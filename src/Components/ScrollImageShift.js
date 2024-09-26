@@ -47,6 +47,7 @@ const CustomerJourney = () => {
     <Box
       sx={{
         padding: { xs: "50px 5%", md: "100px 10%" },
+        maxWidth: "100%",
         backgroundColor: "#fff",
         minHeight: "100vh",
       }}

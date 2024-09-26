@@ -1,8 +1,12 @@
 import React from "react";
-import { Box, Typography, Link } from "@mui/material";
+import { Box, Typography, Link, useMediaQuery, useTheme } from "@mui/material";
 import Marquee from "react-marquee-slider";
 
 const InfiniteBanner = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Check if the screen size is mobile
+  const velocity = isMobile ? 10 : 40; // Set velocity based on screen size
+
   const bannerText = (
     <>
       <Link
@@ -38,7 +42,7 @@ const InfiniteBanner = () => {
         boxSizing: "border-box",
       }}
     >
-      <Marquee velocity={50} pauseOnHover>
+      <Marquee velocity={velocity} pauseOnHover>
         {Array(10).fill(bannerText)} {/* Repeat the banner text */}
       </Marquee>
     </Box>
