@@ -37,7 +37,7 @@ const Footer = () => {
         backgroundColor: "#fff",
         color: "#000",
         padding: "40px 40px",
-        boxShadow: 3, // Added shadow
+        // boxShadow: 3, // Added shadow
       }}
     >
       <Grid
