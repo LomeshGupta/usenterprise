@@ -137,7 +137,7 @@ const CustomerJourney = () => {
                   position: "absolute",
                   top: { xs: 0, md: -200 }, // Align the image to the top of the container
                   left: 50,
-                  width: "100%", // Ensure the image takes full width
+                  width: "90%", // Ensure the image takes full width
                   display: activeSection === index ? "block" : "none",
                   filter: activeSection === index ? "blur(0)" : "blur(8px)",
                   transition: "filter 1s ease",
