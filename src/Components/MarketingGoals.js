@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, Grid } from "@mui/material";
-import MG1 from "../Assets/bg3.jpg";
+import MG1 from "../Assets/bg3.jpg"; // Sample image for the background, replace with your service images
 
 export default function Services() {
   return (
@@ -79,81 +79,101 @@ export default function Services() {
         operational efficiency.
       </Typography>
 
-      {/* Service Boxes Section */}
+      {/* Service Tiles Section */}
       <Grid
         container
         spacing={2}
-        sx={{ marginTop: "20px", zIndex: 2, position: "relative" }}
+        sx={{
+          zIndex: 2,
+          position: "relative",
+          justifyContent: "center",
+          marginTop: "25px",
+        }}
       >
         {[
           {
             title: "ERP Implementation and Support Services",
-            description:
-              "Streamline your operations with our comprehensive ERP solutions and dedicated support.",
-            bgColor: "#fff", // White background
+            image:
+              "https://img.freepik.com/free-vector/gradient-erp-illustration_23-2149379179.jpg?t=st=1728238097~exp=1728241697~hmac=d6a23e9f2e1fc55c6f1b0ed6a4d67153c1076e395b5eff5d06f2926c96080609&w=740",
           },
           {
             title: "D365BC Functional and Technical Training Program",
-            description:
-              "Equip your team with the skills needed to maximize the benefits of Dynamics 365 Business Central.",
-            bgColor: "darkred", // Dark red background
-            textColor: "#fff", // White text for better contrast
+            image:
+              "https://img.freepik.com/free-photo/team-working-animation-project_23-2149269879.jpg?t=st=1728238255~exp=1728241855~hmac=1f3bb64af6d49c0700c299aba371b0c272394cd2682d0e91a914fdfb5b8e61f7&w=740",
           },
           {
             title: "Website Development",
-            description:
-              "Create a powerful online presence with our tailored website development services.",
-            bgColor: "#fff", // White background
+            image:
+              "https://img.freepik.com/free-photo/top-view-man-working-computer-night-holding-mug-tea_169016-51092.jpg?t=st=1728238354~exp=1728241954~hmac=db463f803dccfe03a825913d6638bd689e90a7cd6b64cf47ae6360fa0d8b3791&w=740",
           },
           {
             title: "Custom App Development (Web and Mobile)",
-            description:
-              "Build custom applications tailored to your business needs for both web and mobile platforms.",
-            bgColor: "darkred", // Dark red background
-            textColor: "#fff", // White text for better contrast
+            image:
+              "https://img.freepik.com/free-photo/representation-user-experience-interface-design_23-2150169863.jpg?t=st=1728237788~exp=1728241388~hmac=e15f8fec12eb42e2445159a5ee34751ee4a034067cb9c01637b01bfb64e1136f&w=740",
           },
           {
             title: "Project Management Services",
-            description:
-              "Ensure your projects run smoothly with our expert project management services.",
-            bgColor: "#fff", // White background
+            image:
+              "https://img.freepik.com/free-photo/diverse-multi-ethnic-business-teamwork-overworking-office-meeting-room-analyzing-financial-graphs_482257-8164.jpg?t=st=1728238456~exp=1728242056~hmac=9efa2027cd82c2e2e865492ade860d26efeed026d798bc6bea5e9e3e82920187&w=740",
           },
           {
             title: "Cloud Hosting with Dedicated Support",
-            description:
-              "Experience reliable cloud hosting solutions backed by our dedicated support team.",
-            bgColor: "darkred", // Dark red background
-            textColor: "#fff", // White text for better contrast
+            image:
+              "https://img.freepik.com/free-vector/data-network-illustration_24908-57791.jpg?t=st=1728238548~exp=1728242148~hmac=00532f50087987b3f409222abb702a779d7b3114595cc4898e1c274678e2f006&w=740",
           },
         ].map((service, index) => (
-          <Grid item xs={12} md={6} key={index}>
+          <Grid item xs={12} md={2} key={index}>
             <Box
               sx={{
-                backgroundColor: service.bgColor,
+                position: "relative",
+                height: { xs: "40vh", md: "40vh" }, // Fixed height for both mobile and desktop
+                width: { xs: "100%", md: "auto" }, // Fixed width for both mobile and desktop
                 borderRadius: "15px",
-                padding: "20px",
-                boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                backgroundImage: `url(${service.image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                overflow: "hidden",
+                cursor: "pointer",
+                transition: "transform 0.3s ease",
+                "&:hover": {
+                  transform: "scale(1.04)",
+                },
               }}
             >
-              <Typography
-                variant="h6"
+              {/* Red fog effect */}
+              <Box
                 sx={{
-                  color: service.textColor || "#9c8530", // Default text color
-                  fontWeight: "bold",
-                  marginBottom: "10px",
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  height: "30%", // Adjust height of the red fog
+                  background:
+                    "linear-gradient(transparent, rgba(212, 49, 38, 0.7))",
+                  transition: "background 0.3s ease",
+                  display: "flex",
+                  alignItems: "flex-end",
+                  padding: "10px", // Adjust padding for text
+                  "&:hover": {
+                    background:
+                      "linear-gradient(transparent, rgba(212, 49, 38, 1))",
+                  },
                 }}
               >
-                {service.title}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: service.textColor ? "#fff" : "#555",
-                  fontSize: "16px",
-                }}
-              >
-                {service.description}
-              </Typography>
+                {/* Service Title */}
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "#fff",
+                    fontWeight: "bold",
+                    textAlign: "left",
+                    fontSize: "22px",
+                    width: "100%",
+                  }}
+                >
+                  {service.title}
+                </Typography>
+              </Box>
             </Box>
           </Grid>
         ))}

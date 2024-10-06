@@ -112,7 +112,7 @@ const HeroSection = React.memo(() => {
               fontFamily: "Inter, sans-serif",
             }}
           >
-            Your Vision. <br /> Our Craft.
+            Your Vision, <br /> Our Craft.
           </Typography>
           <Typography
             variant="body1"
@@ -123,9 +123,11 @@ const HeroSection = React.memo(() => {
               fontFamily: "Inter, sans-serif",
             }}
           >
-            We create custom websites and mobile apps that elevate your brand,
-            offering CRM solutions, Zoho ERP, and Microsoft Dynamics 365
-            training. Partner with us to realize your vision and drive success.
+            We create custom websites and web and mobile applications that
+            elevate your brand. We also offer CRM solutions, Zoho ERP, and
+            Microsoft Dynamics 365 implementation, support, training, and
+            project management. Partner with us to realize your vision and drive
+            success.
           </Typography>
           <Button
             variant="contained"

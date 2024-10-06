@@ -3,6 +3,7 @@ import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Navbar";
 import Home from "./Pages/Home";
+import OverView from "./Pages/OverviewPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
         </Suspense>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/overview" element={<OverView />} />
         </Routes>
       </div>
     </Router>

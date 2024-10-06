@@ -15,9 +15,9 @@ const Home = () => {
       <Navbar />
       <HeroSection />
       <AboutUS />
+      <MarketingGoals />
       <ScrollImageShift />
       <CenteredBox />
-      <MarketingGoals />
       <InfiniteBanner />
       <Footer />
     </>

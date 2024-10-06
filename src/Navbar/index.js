@@ -17,6 +17,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import MenuIcon from "@mui/icons-material/Menu"; // Menu icon for mobile
 import logo from "../Assets/logo1.png";
 import useMediaQuery from "@mui/material/useMediaQuery"; // Hook for media query
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -25,6 +26,7 @@ const Navbar = () => {
   const open = Boolean(anchorEl);
   const solutionsButtonRef = useRef(null);
   const isMobile = useMediaQuery("(max-width:900px)"); // Check if it's mobile view
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleMenuOpen = () => {
     setAnchorEl(solutionsButtonRef.current);
@@ -78,7 +80,10 @@ const Navbar = () => {
         }}
       >
         {/* Logo Section */}
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box
+          sx={{ display: "flex", alignItems: "center" }}
+          onClick={() => navigate("/")}
+        >
           <img
             src={logo}
             alt="logo"
@@ -129,19 +134,19 @@ const Navbar = () => {
                 onKeyDown={handleDrawerClose}
               >
                 <List>
-                  <ListItem button>
+                  <ListItem button onClick={() => navigate("/about")}>
                     <ListItemText primary="About" />
                   </ListItem>
-                  <ListItem button>
+                  <ListItem button onClick={() => navigate("/overview")}>
                     <ListItemText primary="Overview" />
                   </ListItem>
-                  <ListItem button>
+                  <ListItem button onClick={() => navigate("/solutions")}>
                     <ListItemText primary="Solutions" />
                   </ListItem>
-                  <ListItem button>
+                  <ListItem button onClick={() => navigate("/contact")}>
                     <ListItemText primary="Contact" />
                   </ListItem>
-                  <ListItem button>
+                  <ListItem>
                     <Button
                       variant="contained"
                       sx={{
@@ -156,6 +161,7 @@ const Navbar = () => {
                         alignItems: "center",
                         gap: "10px",
                       }}
+                      onClick={() => navigate("/demo")} // Redirect to demo page
                     >
                       Request a Demo
                       <ArrowForwardIcon />
@@ -185,6 +191,7 @@ const Navbar = () => {
                   backgroundColor: "transparent",
                 },
               }}
+              onClick={() => navigate("/about")} // Redirect to About page
             >
               About
             </Button>
@@ -199,6 +206,7 @@ const Navbar = () => {
                   backgroundColor: "transparent",
                 },
               }}
+              onClick={() => navigate("/overview")} // Redirect to Overview page
             >
               Overview
             </Button>
@@ -243,7 +251,10 @@ const Navbar = () => {
               }}
             >
               <MenuItem
-                onClick={handleMenuClose}
+                onClick={() => {
+                  handleMenuClose();
+                  navigate("/solutions/erp");
+                }}
                 sx={{
                   "&:hover": {
                     backgroundColor: "transparent",
@@ -254,7 +265,10 @@ const Navbar = () => {
                 ERP Implementation and Support Services
               </MenuItem>
               <MenuItem
-                onClick={handleMenuClose}
+                onClick={() => {
+                  handleMenuClose();
+                  navigate("/solutions/d365bc");
+                }}
                 sx={{
                   "&:hover": {
                     backgroundColor: "transparent",
@@ -265,7 +279,10 @@ const Navbar = () => {
                 D365BC Functional and Technical Training Program
               </MenuItem>
               <MenuItem
-                onClick={handleMenuClose}
+                onClick={() => {
+                  handleMenuClose();
+                  navigate("/solutions/web-development");
+                }}
                 sx={{
                   "&:hover": {
                     backgroundColor: "transparent",
@@ -276,7 +293,10 @@ const Navbar = () => {
                 Website Development
               </MenuItem>
               <MenuItem
-                onClick={handleMenuClose}
+                onClick={() => {
+                  handleMenuClose();
+                  navigate("/solutions/custom-app-development");
+                }}
                 sx={{
                   "&:hover": {
                     backgroundColor: "transparent",
@@ -287,7 +307,10 @@ const Navbar = () => {
                 Custom App Development (Web and Mobile)
               </MenuItem>
               <MenuItem
-                onClick={handleMenuClose}
+                onClick={() => {
+                  handleMenuClose();
+                  navigate("/solutions/project-management");
+                }}
                 sx={{
                   "&:hover": {
                     backgroundColor: "transparent",
@@ -298,7 +321,10 @@ const Navbar = () => {
                 Project Management Services
               </MenuItem>
               <MenuItem
-                onClick={handleMenuClose}
+                onClick={() => {
+                  handleMenuClose();
+                  navigate("/solutions/cloud-hosting");
+                }}
                 sx={{
                   "&:hover": {
                     backgroundColor: "transparent",
@@ -321,6 +347,7 @@ const Navbar = () => {
                   backgroundColor: "transparent",
                 },
               }}
+              onClick={() => navigate("/contact")} // Redirect to Contact page
             >
               Contact
             </Button>
@@ -364,6 +391,7 @@ const Navbar = () => {
                 width: "100%", // Color transition effect
               },
             }}
+            onClick={() => navigate("/demo")} // Redirect to demo page
           >
             Request a Demo
             <ArrowForwardIcon sx={{ transition: "transform 0.3s ease" }} />
